@@ -57,6 +57,22 @@ button {
     box-shadow: 0 5px 15px #e99ab555;
     transition: transform .2s;
 }
+input {
+    margin-top: 15px;
+    padding: 14px 18px;
+    width: min(280px, 85vw);
+    border: 2px solid #f3a5bf;
+    border-radius: 25px;
+    font-size: 17px;
+    text-align: center;
+    outline: none;
+    background: white;
+    color: #754052;
+}
+
+input:focus {
+    border-color: #d85c89;
+}
 
 button:hover {
     transform: scale(1.06);
@@ -149,11 +165,24 @@ button:hover {
 
 <section id="opening" class="screen">
     <div class="envelope">💌</div>
-    <h1>How much do I love you?</h1>
+    <h1>How much do I love you? 💗</h1>
     <p class="subtitle">
-        hope you'll understand after reading💕
+        Hope you'll know after reading<br>
+        Enter PIN code🐰
     </p>
-    <button onclick="startLetter()">Open Gift 💌</button>
+
+    <input
+        id="secretCode"
+        type="password"
+        placeholder="Нууц код 🔐"
+        autocomplete="off"
+    >
+
+    <br>
+
+    <button onclick="checkCode()">Захиагаа нээх 💌</button>
+
+    <p id="errorMessage" style="color:#d6336c;"></p>
 </section>
 
 <div id="rain"></div>
@@ -162,6 +191,7 @@ button:hover {
 <article class="paper">
 
 <p class="opening-line">Сайн уу, хайрт минь ♡</p>
+<p>Юуны түрүүнд баахан нууц үг бодуулсанд уучлаарай хэхэхэ.</p>
 
 <p>Энэхүү захидлыг өрөөнийхөө мухарт чимээгүйхэн суун, чинийхээ инээмсэглэл, үнэр, хоолойг санаж, чамтайгаа хамт өнгөрүүлсэн мөчүүдээ дотроо дахин дахин эргэн дурсах зуураа бичиж байна.</p>
 
@@ -245,6 +275,25 @@ button:hover {
 </section>
 
 <script>
+function checkCode() {
+    const correctCode = "0925";
+    const enteredCode = document.getElementById("secretCode").value;
+
+    if (enteredCode === correctCode) {
+        document.getElementById("errorMessage").textContent = "";
+        startLetter();
+    } else {
+        document.getElementById("errorMessage").textContent =
+            "Буруу код байна аа, хайрт минь 🥺💗";
+    }
+}
+
+document.getElementById("secretCode").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        checkCode();
+    }
+});
+
 function startLetter() {
     const opening = document.getElementById("opening");
     const rain = document.getElementById("rain");
